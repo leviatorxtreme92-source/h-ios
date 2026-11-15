@@ -83,3 +83,5 @@ jobs:
           if-no-files-found: error
 
 # trigger macOS build (public repo)
+
+# retry after payment method added
