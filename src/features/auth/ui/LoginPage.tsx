@@ -224,8 +224,10 @@ export default function LoginPage() {
 
       <WindowControls variant="glass" isFullscreen />
 
-      <section className="relative z-10 mx-4 my-auto grid max-h-[calc(100%-48px)] w-full max-w-[780px] grid-cols-[300px_1fr] gap-[8px] overflow-y-auto rounded-panel border border-border-primary bg-bg-panel p-[8px]">
-        <LoginBrandPanel title={heading} subtitle={subheading} />
+      <section className="relative z-10 mx-4 my-auto grid max-h-[calc(100%-48px)] w-full max-w-[780px] grid-cols-1 sm:grid-cols-[300px_1fr] gap-[8px] overflow-y-auto rounded-panel border border-border-primary bg-bg-panel p-[8px]">
+        <div className="hidden sm:block">
+          <LoginBrandPanel title={heading} subtitle={subheading} />
+        </div>
 
         <div className="flex w-full flex-col px-[28px] pb-[22px] pt-[26px]">
           <div className="flex flex-col pb-6">

@@ -195,7 +195,8 @@ export function getAuthErrorCode(error: unknown): string {
 }
 
 export function authErrorMessage(error: unknown): string {
-  if (!(error instanceof ApiError)) return "Unable to reach the server.";
+  if (!(error instanceof ApiError))
+    return `Réseau: ${error instanceof Error ? error.message : String(error)}`;
   if (error.code === "INVALID_CREDENTIALS")
     return "Email or password is incorrect.";
   if (error.code === "EMAIL_ALREADY_USED")
@@ -204,6 +205,6 @@ export function authErrorMessage(error: unknown): string {
     return "This username is already taken. Please choose another.";
   if (error.code === "INVALID_USERNAME")
     return "Username must be 3-30 lowercase characters (a-z, 0-9, _).";
-  // unknown api errors stay generic, never surface raw bodies
-  return "Something went wrong. Please try again.";
+  // DEBUG (build iOS): on expose le status + code réels pour diagnostiquer.
+  return `DEBUG ${error.status}${error.code ? " / " + error.code : ""}${error.message ? " – " + error.message : ""}`;
 }
