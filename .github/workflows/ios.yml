@@ -85,3 +85,5 @@ jobs:
 # trigger macOS build (public repo)
 
 # retry after payment method added
+
+# retry (paypal propagation wait)
