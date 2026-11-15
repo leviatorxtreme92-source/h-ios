@@ -16,7 +16,7 @@ workflows:
       cocoapods: default
     scripts:
       - name: Install pnpm
-        script: npm i -g pnpm@9.15.9
+        script: npm i -g pnpm@9.15.9 --force
 
       - name: Remove pnpm workspace file (pnpm 9 compatibility)
         script: rm -f pnpm-workspace.yaml
