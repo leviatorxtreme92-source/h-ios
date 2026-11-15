@@ -1,0 +1,10 @@
+{
+  "appId": "com.h.app",
+  "appName": "@h <3",
+  "webDir": "dist",
+  "ios": {
+    "contentInset": "always",
+    "backgroundColor": "#0d0d10"
+  },
+  "backgroundColor": "#0d0d10"
+}

@@ -1,0 +1,14 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="dock-shadow" x="0" y="0" width="1024" height="1024" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  <rect x="100" y="100" width="824" height="824" rx="185" fill="#0d0d10" filter="url(#dock-shadow)"/>
+  <rect x="101" y="101" width="822" height="822" rx="184" stroke="#ffffff" stroke-opacity="0.08" stroke-width="2"/>
+  <g transform="translate(300 300) scale(4.6)">
+    <path d="M30 16 V84" stroke="#ffffff" stroke-width="14" stroke-linecap="round"/>
+    <path d="M30 52 C30 40 72 35 72 58 V84" stroke="#ffffff" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <path transform="translate(60 2) scale(1.05)" d="M12 21.6 C12 21.6 1.5 14.4 1.5 7 C1.5 3.1 4.6 1 7.4 1 C9.6 1 11.2 2.6 12 4 C12.8 2.6 14.4 1 16.6 1 C19.4 1 22.5 3.1 22.5 7 C22.5 14.4 12 21.6 12 21.6 Z" fill="#ffffff"/>
+  </g>
+</svg>

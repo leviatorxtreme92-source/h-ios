@@ -1,0 +1,83 @@
+name: iOS build (unsigned ipa)
+
+# Builds the React UI into an iOS app shell (Capacitor) and produces an
+# UNSIGNED .ipa on a GitHub-hosted macOS runner — no Mac required locally.
+# The .ipa must be re-signed on your side (AltStore / Sideloadly) to install.
+#
+# NOTE: this is the "UI shell" step. Login + music streaming rely on
+# desktop-only (Node) code and are not expected to work inside the iOS
+# WebView without further native work.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "capacitor.config.json"
+      - ".github/workflows/ios.yml"
+
+jobs:
+  build-ios:
+    runs-on: macos-14
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install pnpm
+        run: npm i -g pnpm@9.15.9
+
+      - name: Remove pnpm workspace file (pnpm 9 compatibility)
+        run: rm -f pnpm-workspace.yaml
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile --ignore-scripts
+
+      - name: Build web assets
+        run: pnpm run build
+
+      - name: Add & sync iOS platform
+        run: |
+          npx cap add ios || true
+          npx cap sync ios
+
+      - name: CocoaPods install
+        run: |
+          cd ios/App
+          pod install
+
+      - name: Build unsigned archive
+        run: |
+          cd ios/App
+          xcodebuild \
+            -workspace App.xcworkspace \
+            -scheme App \
+            -configuration Release \
+            -sdk iphoneos \
+            -destination 'generic/platform=iOS' \
+            -archivePath "$PWD/build/App.xcarchive" \
+            archive \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            DEVELOPMENT_TEAM=""
+
+      - name: Package unsigned .ipa
+        run: |
+          cd ios/App/build
+          mkdir -p Payload
+          cp -r App.xcarchive/Products/Applications/App.app Payload/App.app
+          zip -r h-unsigned.ipa Payload >/dev/null
+          ls -la h-unsigned.ipa
+
+      - name: Upload .ipa artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: h-ios-unsigned-ipa
+          path: ios/App/build/h-unsigned.ipa
+          if-no-files-found: error
