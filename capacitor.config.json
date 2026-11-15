@@ -6,5 +6,13 @@
     "contentInset": "always",
     "backgroundColor": "#0d0d10"
   },
-  "backgroundColor": "#0d0d10"
+  "backgroundColor": "#0d0d10",
+  "server": {
+    "iosScheme": "https"
+  },
+  "plugins": {
+    "CapacitorHttp": {
+      "enabled": true
+    }
+  }
 }
