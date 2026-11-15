@@ -81,3 +81,5 @@ jobs:
           name: h-ios-unsigned-ipa
           path: ios/App/build/h-unsigned.ipa
           if-no-files-found: error
+
+# trigger macOS build (public repo)
